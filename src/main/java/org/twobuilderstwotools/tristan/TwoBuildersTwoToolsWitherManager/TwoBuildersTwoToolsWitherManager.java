@@ -4,6 +4,8 @@ import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.EntityType;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -12,7 +14,7 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-public class TwoBuildersTwoToolsWitherManager extends JavaPlugin {
+public class TwoBuildersTwoToolsWitherManager extends JavaPlugin implements Listener{
 
     File configFile;
     FileConfiguration config;
@@ -30,8 +32,11 @@ public class TwoBuildersTwoToolsWitherManager extends JavaPlugin {
         config = new YamlConfiguration();
         loadYamls();
 
+        getServer().getPluginManager().registerEvents(this, this);
+
     }
 
+    @EventHandler
     public void onMobSpawn(CreatureSpawnEvent e) {
         if (e.getEntity().getType() == EntityType.WITHER) {
             Location loc = e.getLocation();
