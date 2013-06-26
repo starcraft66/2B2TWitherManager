@@ -78,27 +78,33 @@ public class TwoBuildersTwoToolsWitherManager extends JavaPlugin {
             if (LocZ < 0) {
                 if (LocX > radius && LocZ > radius) {
                     return false;
+                } else {
+                    return true;
                 }
             } else {
                 if (LocX > radius && LocZ < radius) {
                     return false;
+                } else {
+                    return true;
                 }
             }
         } else if (LocZ < 0) {
             //Negative z
             if (LocX < radius && LocZ > radius) {
                 return false;
+            } else{
+                return true;
             }
         } else if (LocX > -1 && LocZ > -1) {
             //Both positive
             if (LocX < radius && LocZ < radius) {
                 return false;
+            } else {
+                return true;
             }
         } else {
             return true;
         }
-        //Should be impossible
-        return false;
     }
 
 }
