@@ -1,0 +1,4 @@
+name: 2B2TWitherManager
+author: iTristan
+version: 1.0-SNAPSHOT
+main: org.twobuilderstwotools.tristan.TwoBuildersTwoToolsWitherManager

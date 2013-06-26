@@ -1,0 +1,10 @@
+# 2B2TWitherManager Config
+# The protected-radius value specifies the length from spawn in blocks a player has to travel before being able to spawn a wither.
+# #-----# ^
+# |     | |
+# |     | |  * = Spawn
+# |  *  | |
+# |     |    Arrow = radius
+# |     |
+# #-----#
+protected-radius: 500
