@@ -10,9 +10,8 @@ import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
+
+import java.nio.file.Files;
 
 public class TwoBuildersTwoToolsWitherManager extends JavaPlugin implements Listener{
 
@@ -25,12 +24,20 @@ public class TwoBuildersTwoToolsWitherManager extends JavaPlugin implements List
         configFile = new File(getDataFolder(), "config.yml");
 
         try {
-            firstRun();
+            if (!configFile.exists()) {
+                configFile.getParentFile().mkdirs();
+                Files.copy(getResource("config.yml"), configFile.toPath());
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
         config = new YamlConfiguration();
-        loadYamls();
+        
+        try {
+            config.load(configFile);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         getServer().getPluginManager().registerEvents(this, this);
 
@@ -43,36 +50,6 @@ public class TwoBuildersTwoToolsWitherManager extends JavaPlugin implements List
             if (!witherSpawningAllowed(e.getLocation().getX(), e.getLocation().getZ())) {
                 e.setCancelled(true);
             }
-        }
-    }
-
-    private void firstRun() throws Exception {
-        if (!configFile.exists()) {
-            configFile.getParentFile().mkdirs();
-            copy(getResource("config.yml"), configFile);
-        }
-    }
-
-    private void copy(InputStream in, File file) {
-        try {
-            OutputStream out = new FileOutputStream(file);
-            byte[] buf = new byte [1024];
-            int len;
-            while ((len = in.read(buf))>0) {
-                out.write(buf,0,len);
-            }
-            out.close();
-            in.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void loadYamls() {
-        try {
-            config.load(configFile);
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
